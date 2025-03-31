@@ -1,0 +1,25 @@
+{% extends 'parent/base.html' %}
+{% block title %}home{% endblock %}
+
+{% block content %}
+    <p>دسته بندی ها</p>
+
+    <a href="{% url 'blog:posts_list_category' 'وبسایت'%}">وبسایت</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'رباتیک'%}">رباتیک</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'امنیت'%}">امنیت</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'زبان برنامه نویسی'%}">زبان برنامه نویسی</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'توسعه دهنده'%}">توسعه دهنده</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'شبکه'%}">شبکه</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'اینترنت اشیا'%}">اینترنت اشیا</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'هوش مصنوعی'%}">هوش مصنوعی</a>
+    <br>
+    <a href="{% url 'blog:posts_list_category' 'تکلونوژی'%}">تکلونوژی</a>
+
+{% endblock %}

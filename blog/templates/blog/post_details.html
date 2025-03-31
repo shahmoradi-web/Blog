@@ -1,0 +1,13 @@
+{% extends 'parent/base.html' %}
+{% block title %}post details{% endblock %}
+{% load jformat %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>نویسنده : {{ post.author }}</p>
+    <img src="{{ post.images.first.imag_file.url }}" alt="{{ post.images.first.name }}">
+    <p>{{post.category }}</p>
+    <h4>{{ post.content}}</h4>
+    <hr>
+    <p>تاریخ انتشار:{{ post.published | jformat:"%Y/%m/%d"}}</p>
+{% endblock %}
