@@ -95,3 +95,18 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.name} : {self.post}'
+
+
+class Ticket(models.Model):
+    message = models.TextField(verbose_name='پیام')
+    name = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tickets')
+    email = models.EmailField(verbose_name='ایمیل')
+    phone = models.CharField(max_length=11, verbose_name='شماره تماس')
+    subject = models.CharField(max_length=250, verbose_name='موضوع')
+
+    def __str__(self):
+        return self.subject
+
+    class Meta:
+        verbose_name = 'تیکت'
+        verbose_name_plural = 'تیکت ها'

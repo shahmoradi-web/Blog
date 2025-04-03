@@ -30,3 +30,18 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('body',)
+
+class TicketForm(forms.Form):
+    message = forms.CharField(required=True)
+    name = forms.CharField(max_length=250, required=True)
+    email = forms.EmailField()
+    phone = forms.CharField(max_length=11, required=True)
+    subject = forms.CharField()
+
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if phone:
+            if not phone.isdigit():
+                raise forms.ValidationError("شماره تلفن فقط باید شامل عدد باشد")
+            else:
+                return phone

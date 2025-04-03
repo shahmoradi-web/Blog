@@ -22,3 +22,7 @@ class ImageAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['name', 'body', 'created']
+
+@admin.register(Ticket)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['name', 'subject', 'email']

@@ -10,8 +10,8 @@ from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
 
-from blog.forms import CreatePostForm, UserRegisterForm, CommentForm
-from blog.models import Post, Image, Comment
+from blog.forms import CreatePostForm, UserRegisterForm, CommentForm, TicketForm
+from blog.models import Post, Image, Comment, Ticket
 from django.contrib import messages
 
 
@@ -116,3 +116,18 @@ def post_comment(request, post_id):
         'comment': comment
     }
     return render(request, 'forms/comment.html', context)
+
+
+def ticket(request):
+    if request.method == 'POST':
+        form = TicketForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            Ticket.objects.create(message=cd.get('message'), name=request.user,
+                                  email=cd.get('email'), phone=cd.get('phone'),
+                                  subject=cd.get('subject'))
+            return redirect('blog:profile')
+    else:
+        form = TicketForm()
+    return render(request, 'forms/ticket.html', {'form': form})
+

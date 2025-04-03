@@ -31,6 +31,7 @@ urlpatterns = [
 
     path('register/', views.register, name='register'),
     path('posts/<int:post_id>/comment', views.post_comment, name='post_comment'),
+    path('ticket', views.ticket, name='ticket'),
 
 ]
 
