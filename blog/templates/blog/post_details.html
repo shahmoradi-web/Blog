@@ -10,4 +10,21 @@
     <h4>{{ post.content}}</h4>
     <hr>
     <p>تاریخ انتشار:{{ post.published | jformat:"%Y/%m/%d"}}</p>
+
+    <div>
+        {% for cm in comments %}
+
+            <p>{{ cm.body }}</p>
+            <p>{{ cm.name }}</p>
+            <hr>
+        {% empty %}
+            کامنتی وجود ندارد
+        {% endfor %}
+    </div>
+
+    <form method="post" action="{% url 'blog:post_comment' post.id%}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="افزودن کامنت">
+    </form>
 {% endblock %}

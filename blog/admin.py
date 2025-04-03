@@ -18,3 +18,7 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['post', 'imag_file']
+
+@admin.register(Comment)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ['name', 'body', 'created']

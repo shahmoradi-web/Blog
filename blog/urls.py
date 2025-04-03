@@ -8,7 +8,7 @@ app_name = 'blog'
 urlpatterns = [
     path('', views.home, name='home'),
     path('posts/', views.posts_list, name='posts_list'),
-    path('posts/details/<int:pk>', views.PostDetailView.as_view(), name='post_detail'),
+    path('posts/detail/<int:post_id>', views.post_detail, name='post_detail'),
     path('posts/<str:category>', views.posts_list, name='posts_list_category'),
     # path('profile/create-post/<int:post_id>', views.edit_post, name='edit_post'),
     path('profile/', views.profile, name='profile'),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('password_reset/complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('register/', views.register, name='register'),
+    path('posts/<int:post_id>/comment', views.post_comment, name='post_comment'),
 
 ]
 

@@ -7,10 +7,11 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
 
-from blog.forms import CreatePostForm, UserRegisterForm
-from blog.models import Post, Image
+from blog.forms import CreatePostForm, UserRegisterForm, CommentForm
+from blog.models import Post, Image, Comment
 from django.contrib import messages
 
 
@@ -26,9 +27,17 @@ def posts_list(request, category=None):
     return render(request, 'blog/posts_list.html', {'posts': posts, 'category': category})
 
 
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'blog/post_details.html'
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+    form = CommentForm()
+    comments = Comment.objects.filter(post=post_id)
+    context = {
+        'post': post,
+        'form': form,
+        'comments': comments,
+    }
+
+    return render(request, 'blog/post_details.html', context)
 
 
 @login_required
@@ -88,3 +97,22 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
+
+@require_POST
+def post_comment(request, post_id):
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+    comment = None
+    form = CommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.post = post
+        comment.name = request.user
+        comment.save()
+    context = {
+        'post': post,
+        'form': form,
+        'comment': comment
+    }
+    return render(request, 'forms/comment.html', context)

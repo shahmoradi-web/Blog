@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from blog.models import Post
+from blog.models import Post, Comment
 
 
 class CreatePostForm(forms.ModelForm):
@@ -24,3 +24,9 @@ class UserRegisterForm(forms.ModelForm):
         if cd['password1'] != cd['password2']:
             raise ValidationError('پسورد ها مطابقت ندارد')
         return cd['password2']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('body',)
