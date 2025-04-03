@@ -75,9 +75,3 @@ class Image(models.Model):
     def delete(self, *args, **kwargs):
         storage, path = self.imag_file.storage, self.imag_file.path
         storage.delete(path)
-        super().delete(*args, **kwargs)
-
-    class Meta:
-        ordering = ['-created']
-        indexes = [models.Index(fields=['created'])]
-

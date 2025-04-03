@@ -32,13 +32,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django_jalali',
+    'blog.apps.BlogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig'
+
 ]
 
 MIDDLEWARE = [
@@ -137,8 +138,19 @@ USE_TZ = True
 STATIC_URL = 'static/'
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+LOGIN_REDIRECT_URL = '/blog/profile/'
+LOGIN_URL = '/blog/login/'
+LOGOUT_URL = '/blog/logout/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'shahmoradinrges@gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'lindjcuqblnltobq'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
