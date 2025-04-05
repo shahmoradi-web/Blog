@@ -1,0 +1,6 @@
+{% for comment in comments %}
+    <p>{{ comment.name }}</p>
+    <p>{{ comment.body }}</p>
+    <p>{{ comment.created | date:'Y/n/j' }}</p>
+    <hr>
+{% endfor %}

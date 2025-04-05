@@ -31,8 +31,11 @@ urlpatterns = [
 
     path('register/', views.register, name='register'),
     path('posts/<int:post_id>/comment', views.post_comment, name='post_comment'),
+    path('post/comments/<int:post_id>', views.comments_show, name='comments_show'),
+
     path('ticket', views.ticket, name='ticket'),
     path('search/', views.post_search, name='post_search'),
+    path('profile', views.profile, name='profile'),
 
 ]
 

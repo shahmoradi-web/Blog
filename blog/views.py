@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import ImproperlyConfigured
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -82,8 +83,23 @@ def delete_post(request, pk):
         return redirect('blog:home')
     return render(request, 'forms/delete_post.html',{'post':post})
 
+@login_required
 def profile(request):
-    return HttpResponse('profile')
+    user = request.user
+    posts = Post.publish.filter(author=user)
+    post_count = posts.count()
+    if post_count > 10:
+        paginator = Paginator(posts, 10)
+        page_number = request.GET.get('page', 1)
+        try:
+            posts = paginator.get_page(page_number)
+        except EmptyPage:
+            posts = paginator.get_page(paginator.num_pages)
+        except PageNotAnInteger:
+            posts = paginator.get_page(1)
+
+    return render(request, 'blog/profile.html', {'posts': posts, 'post_count': post_count})
+
 
 def register(request):
     if request.method == 'POST':
@@ -166,3 +182,8 @@ def post_search(request):
         'len_results' : len(results)
     }
     return render(request, 'blog/search.html', context)
+
+
+def comments_show(request, post_id):
+    comments = Comment.objects.filter(post = post_id)
+    return render(request, 'blog/comments_show.html', {'comments': comments})
