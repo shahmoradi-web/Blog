@@ -3,6 +3,7 @@ from http.client import HTTPResponse
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -10,7 +11,7 @@ from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
 
-from blog.forms import CreatePostForm, UserRegisterForm, CommentForm, TicketForm
+from blog.forms import CreatePostForm, UserRegisterForm, CommentForm, TicketForm, SearchForm
 from blog.models import Post, Image, Comment, Ticket
 from django.contrib import messages
 
@@ -131,3 +132,37 @@ def ticket(request):
         form = TicketForm()
     return render(request, 'forms/ticket.html', {'form': form})
 
+def post_search(request):
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            result1 = (Post.objects.annotate(similarity=TrigramSimilarity('title', query))
+                       .filter(similarity__gte=0.1))
+            result2 = (Post.objects.annotate(similarity=TrigramSimilarity('content', query))
+                       .filter(similarity__gte=0.1))
+            from itertools import chain
+            results = list(chain(result1, result2))
+
+            # sort_results
+
+            new_results = []
+            while results:
+                max_simi = results[0].similarity
+                max_object = results[0]
+                for result in results:
+                    if result.similarity > max_simi:
+                        max_simi = result.similarity
+                        max_object = result
+                new_results.append(max_object)
+                results.remove(max_object)
+            results = new_results
+
+    context = {
+        'results': results,
+        'query': query,
+        'len_results' : len(results)
+    }
+    return render(request, 'blog/search.html', context)

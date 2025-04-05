@@ -1,0 +1,16 @@
+{% extends 'parent/base.html' %}
+{% block title %}post search{% endblock %}
+
+{% block content %}
+    {% if query %}
+        <p style="color: black">{{ len_results }} amount of search for query {{ query }}</p>
+    {% endif %}
+    <br>
+    {% for post in results %}
+        <a style="color: blueviolet" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        <p style="color: black">{{ post.content| truncatewords:20 }}</p>
+        <br>
+    {% empty %}
+        No result!
+    {% endfor %}
+{% endblock %}

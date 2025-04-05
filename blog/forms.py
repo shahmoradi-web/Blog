@@ -45,3 +45,7 @@ class TicketForm(forms.Form):
                 raise forms.ValidationError("شماره تلفن فقط باید شامل عدد باشد")
             else:
                 return phone
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField()
