@@ -5,6 +5,17 @@ from django_jalali.admin.filters import JDateFieldListFilter
 from .models import *
 # Register your models here.
 
+class ImagInline(admin.TabularInline):
+    model = Image
+    extra = 0
+
+
+class CommentInline(admin.TabularInline):
+    model = Comment
+    extra = 0
+    fields = ['name', 'body', 'active']
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'author', 'published', 'status']
@@ -13,6 +24,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'content']
     prepopulated_fields = {'slug': ['title']}
     list_editable = ['status']
+    inlines = [ImagInline, CommentInline]
 
 
 @admin.register(Image)
