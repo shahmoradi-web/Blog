@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Account
 
 
 class CreatePostForm(forms.ModelForm):
@@ -49,3 +49,17 @@ class TicketForm(forms.Form):
 
 class SearchForm(forms.Form):
     query = forms.CharField()
+
+
+class UserEditForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+
+
+class AccountEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Account
+        fields = ['data_of_brith', 'bio', 'photo', 'job']

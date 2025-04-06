@@ -13,7 +13,8 @@ from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
 
-from blog.forms import CreatePostForm, UserRegisterForm, CommentForm, TicketForm, SearchForm
+from blog.forms import CreatePostForm, UserRegisterForm, CommentForm, TicketForm, SearchForm, UserEditForm, \
+    AccountEditForm
 from blog.models import Post, Image, Comment, Ticket, Account
 from django.contrib import messages
 
@@ -202,3 +203,21 @@ def post_search(request):
 def comments_show(request, post_id):
     comments = Comment.objects.filter(post = post_id)
     return render(request, 'blog/comments_show.html', {'comments': comments})
+
+@login_required
+def edit_account(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(request.POST, instance=request.user)
+        account_form = AccountEditForm(request.POST, request.FILES, instance=request.user.account)
+        if user_form.is_valid() and account_form.is_valid():
+            user_form.save()
+            account_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+        account_form = AccountEditForm(instance=request.user.account)
+
+    context = {
+        'account_form': account_form,
+        'user_form': user_form,
+    }
+    return render(request, 'registration/edit_account.html', context)

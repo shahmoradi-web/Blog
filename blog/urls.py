@@ -37,6 +37,7 @@ urlpatterns = [
     path('search/', views.post_search, name='post_search'),
     path('profile', views.profile, name='profile'),
     path('profile/show/<int:user_profile>', views.profile_show, name='profile_show'),
+    path('account/edit', views.edit_account, name='edit_account'),
 
 ]
 
