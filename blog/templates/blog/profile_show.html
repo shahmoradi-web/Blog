@@ -1,0 +1,16 @@
+<img src="{{ account.photo.url }}" alt = 'upload image...'>
+<h4>Personal information</h4>
+<pre style="font-size: large">{{ user.first_name }} {{ user.last_name }}</pre>
+<pre style="font-size: large">{{ user.email }}</pre>
+<pre style="font-size: large">brith day : {{ account.data_of_brith }}</pre>
+<pre style="font-size: large">job: {{ account.job}}</pre>
+<pre style="font-size: large">bio: {{ account.bio }}</pre>
+<hr>
+<h4>Posts {{ user.username }}</h4>
+
+{% for post in posts %}
+    <h3><a  style="color: darkgreen" href={{ post.get_absolute_url }}>{{ post.title }}</a></h3>
+    <p>{{ post.description | truncatewords:5}}</p>
+    <img src="{{ post.images.first.imag_file.url }}" alt="{{ post.images.first.title }}">
+    <p><<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>></p>
+{% endfor %}

@@ -2,6 +2,7 @@ from http.client import HTTPResponse
 
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.contrib.postgres.search import TrigramSimilarity
 from django.core.exceptions import ImproperlyConfigured
@@ -13,7 +14,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DetailView
 
 from blog.forms import CreatePostForm, UserRegisterForm, CommentForm, TicketForm, SearchForm
-from blog.models import Post, Image, Comment, Ticket
+from blog.models import Post, Image, Comment, Ticket, Account
 from django.contrib import messages
 
 
@@ -98,7 +99,21 @@ def profile(request):
         except PageNotAnInteger:
             posts = paginator.get_page(1)
 
-    return render(request, 'blog/profile.html', {'posts': posts, 'post_count': post_count})
+    return render(request, 'blog/profile.html', {'posts': posts, 'post_count': post_count, 'user':user})
+
+@login_required
+def profile_show(request, user_profile):
+    user = User.objects.get(id=user_profile)
+    account = Account.objects.get(user__id=user_profile)
+    posts = Post.objects.filter(author__id=user_profile)
+
+    context = {
+        'user': user,
+        'account': account,
+        'posts': posts
+    }
+    return render(request, 'blog/profile_show.html', context)
+
 
 
 def register(request):
@@ -108,7 +123,7 @@ def register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password1'])
             user.save()
-            # Account.objects.create(user = user)
+            Account.objects.create(user = user)
             return render(request, 'registration/register_done.html', {'user': user})
 
     else:

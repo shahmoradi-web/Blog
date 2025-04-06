@@ -110,3 +110,18 @@ class Ticket(models.Model):
     class Meta:
         verbose_name = 'تیکت'
         verbose_name_plural = 'تیکت ها'
+
+class Account(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='account', verbose_name='کاربر')
+    data_of_brith = jmodels.jDateField(verbose_name='تاریخ تولد', blank=True, null=True)
+    bio = models.TextField(blank=True, null=True, verbose_name='بیوگرافی')
+    photo = ResizedImageField(upload_to='account_images/', size=[500, 500], crop=['top', 'left'], quality=60, verbose_name='تصویر')
+    job = models.CharField(max_length=250, verbose_name='شغل')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'اکانت'
+        verbose_name_plural = 'اکانت ها'
+

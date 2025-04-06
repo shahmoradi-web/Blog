@@ -36,6 +36,7 @@ urlpatterns = [
     path('ticket', views.ticket, name='ticket'),
     path('search/', views.post_search, name='post_search'),
     path('profile', views.profile, name='profile'),
+    path('profile/show/<int:user_profile>', views.profile_show, name='profile_show'),
 
 ]
 

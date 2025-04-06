@@ -38,3 +38,7 @@ class ImageAdmin(admin.ModelAdmin):
 @admin.register(Ticket)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ['name', 'subject', 'email']
+
+@admin.register(Account)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ['data_of_brith', 'bio', 'photo', 'job']

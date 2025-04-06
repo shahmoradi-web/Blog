@@ -1,6 +1,7 @@
 {% extends 'parent/base.html' %}
 {% block title %}profile{% endblock %}
 {% block content %}
+    <p><a style="color: black" href="{% url 'blog:profile_show'  user.id %}">نمایش اطلاعات شخصی</a></p>
     <br>
     <b><a href="{% url 'blog:create_post' %}">ایجاد پروفایل جدید+</a></b>
     {% if post_count > 10 %}
