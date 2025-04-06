@@ -14,6 +14,9 @@
         </div>
     {% endfor %}
 
+    {% include "partials/pagination.html" with page=posts%}
+
+
     <p>دسته بندی ها</p>
 
     <a href="{% url 'blog:posts_list_category' 'وبسایت'%}">وبسایت</a>

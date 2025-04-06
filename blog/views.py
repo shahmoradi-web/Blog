@@ -25,10 +25,22 @@ def home(request):
     return render(request, 'blog/home.html')
 def posts_list(request, category=None):
     if category is not None:
-        posts = Post.publish.filter(category=category)
+        posts = Post.objects.filter(category=category)
     else:
         posts = Post.publish.all()
-    return render(request, 'blog/posts_list.html', {'posts': posts, 'category': category})
+    paginator = Paginator(posts, 2)
+    page_number = request.GET.get('page', 1)
+    try:
+        posts = paginator.get_page(page_number)
+    except EmptyPage:
+        posts = paginator.get_page(paginator.num_pages)
+    except PageNotAnInteger:
+        posts = paginator.get_page(1)
+    context = {
+        'posts': posts,
+        'category': category,
+    }
+    return render(request, 'blog/posts_list.html', context)
 
 
 def post_detail(request, post_id):
