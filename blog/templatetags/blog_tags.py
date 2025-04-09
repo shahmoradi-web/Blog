@@ -46,24 +46,7 @@ def active_user(count=3):
 @register.filter(name='markdown')
 def to_markdown(value):
     return mark_safe(markdown(value))
-#
-#
-# @register.filter()
-# def censorship(text):
-#     censorship_list = ['gav', 'khar', 'avazi', 'fuck']
-#     text_split = text.split(' ')
-#     text_len = len(text_split)
-#     for letter in text_split:
-#         if letter in censorship_list:
-#             text_split.remove(letter)
-#
-#     if len(text_split) == text_len:
-#         return " ".join(text_split)
-#     else:
-#         return " ".join(text_split) + ' (contains censored text)'
-#
-#
-#
+
 # custom-template-tags (Inclusion  tags)
 @register.inclusion_tag('partials/latest_post.html')
 def latest_post(count=4):
