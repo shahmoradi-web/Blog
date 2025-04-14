@@ -2,39 +2,233 @@
 {% block title %}home{% endblock %}
 {% load  blog_tags %}
 
+
 {% block content %}
 
-    <div style="margin-left: 10px">
-    <h2 style="color: darkorchid; background-color: lightpink; padding-left: 600px; border-radius: 10px">امار</h2>
-    <p> تعداد پست ها:{% total_posts%}</p>
-    <p>تعداد کامنت ها:{% total_comments%}</p>
-    <p>تاریخ اخرین پست:{% last_post_data%}</p>
-    {% latest_post 3 %}
+    <div class="top-wwrap">
+            <div class="container">
+                <div class="row">
+                    <div class="main-menu">
+                    <div class="col-md-12">
+                        <div class="menu-items">
+                            <ul>
+                                <li><a href="#">خانه</a></li>
+                                <li><a href="#">اخبار</a></li>
+                                <li><a href="#">تماس با ما</a></li>
+                                <li><a href="#">درباره ما</a>
+                                    <ul>
+                                        <li><a href="#">خانه</a></li>
+                                        <li><a href="#">اخبار</a></li>
+                                        <li><a href="#">تماس با ما</a>
+                                            <ul>
+                                                <li><a href="#">خانه</a></li>
+                                                <li><a href="#">اخبار</a></li>
+                                                <li><a href="#">تماس با ما</a></li>
+                                                <li><a href="#">درباره ما</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">درباره ما</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-box text-center">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1> به وبلاگ کده خوش آمدید</h1>
+                            <p>سایتی مناسب برای وبلاگ های شما</p>
 
-    <h2>پربحث ترین پست ها:</h2>
-    {% most_discussed_posts 3 as dis_posts %}
-    {% for post in dis_posts %}
-        <br>
-        <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
-    {% endfor %}
-    <p>دسته بندی ها</p>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </div>
+    <div class="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 nopadding">
+                    <div class="item">
 
-    <a href="{% url 'blog:posts_list_category' 'وبسایت'%}">وبسایت</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'رباتیک'%}">رباتیک</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'امنیت'%}">امنیت</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'زبان برنامه نویسی'%}">زبان برنامه نویسی</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'توسعه دهنده'%}">توسعه دهنده</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'شبکه'%}">شبکه</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'اینترنت اشیا'%}">اینترنت اشیا</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'هوش مصنوعی'%}">هوش مصنوعی</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'تکلونوژی'%}">تکلونوژی</a>
+                        <span> تعداد پست ها:</span>
+                        <p>{% total_posts%}</p>
+                    </div>
+                </div>
+                <div class="col-md-3 nopadding">
+                    <div class="item">
+
+                        <span>تعداد کامنت ها:</span>
+                        <p>{% total_comments%}</p>
+                    </div>
+                </div>
+                <div class="col-md-3 nopadding">
+                    <div class="item">
+
+                        <span>تاریخ اخرین پست:</span>
+                        <p>{% last_post_data%}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="index-blog">
+        <div class="container">
+            <div class="row row1">
+                <div class="col-md-6">
+                    <div class="desc">
+                        <h4>{{ post_first.title }}</h4>
+                        <div class="meta">
+                            <p><i class="fa fa-calendar-o"></i> {{ post_first.published }}</p>
+                            <p><i class="fa fa-comment-o"></i> {{ post_first.comments.count }} نظر</p>
+                        </div>
+                        <p>{{ post_first.content }}</p>
+
+                        <div class="text-left">
+                            <a href="{{ post_first.get_absolute_url }}" class="site-btn">ادامه مطلب <i class="fa fa-angle-left"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pic">
+                        <img src="{{ post_first.images.first.imag_file.url }}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row row2">
+                <div class="col-md-6">
+                    <div class="pic">
+                        <img src="{{ post_last.images.first.imag_file.url }}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="desc">
+                        <h4>{{ post_last.title}}</h4>
+                        <div class="meta">
+                            <p><i class="fa fa-calendar-o"></i>{{ post_last.published }}</p>
+                            <p><i class="fa fa-comment-o"></i> {{ post_last.comments.count }} نظر</p>
+                        </div>
+                        <p>{{ post_last.content }}</p>
+
+                        <div class="text-left">
+                            <a href="{{ post_last.get_absolute_url }}" class="site-btn">ادامه مطلب <i class="fa fa-angle-left"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div  class="text-left">
+        <a href="{% url 'blog:posts_list' %}" class="site-btn">ادامه پست ها <i class="fa fa-angle-left"></i></a>
+    </div>
+    <div class="site_boxes_content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="box">
+                        <span class="title">مطالب بحث برانگیز</span>
+                        {% most_discussed_posts 2 as dis_posts %}
+                        {% for post in dis_posts %}
+                        <div class="post_itme_bx">
+                            <div class="col-md-5">
+                                <div class="pic">
+                                    <a href="{{ post.get_absolute_url }}"><img src="{{ post.images.first.imag_file.url }}" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="desc">
+                                    <a href="{{ post.get_absolute_url }}"><h5>{{ post.title }}</h5></a>
+                                    <p>{{ post.content }}</p>
+                                    <span><i class="fa fa-calendar-o"></i>{{ post.published }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="box">
+                        <span class="title">اخرین پست ها</span>
+                        {% for post in l_posts %}
+                        <div class="post_itme_bx">
+                            <div class="col-md-5">
+                                <div class="pic">
+                                    <a href="{{ post.get_absolute_url }}"><img src="{{ post.images.first.imag_file.url }}" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="desc">
+                                    <a href="{{ post.get_absolute_url }}"><h5>{{ post.title }}</h5></a>
+                                    <p>{{ post.content }}</p>
+                                    <span><i class="fa fa-calendar-o"></i> {{ post.published }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="col-md-4">
+                        <div class="footer-menu">
+                            <span class="title">دسترسی سریع</span>
+                            <ul>
+                                <li><a href="#">خانه</a></li>
+                                <li><a href="#">تماس با ما</a></li>
+                                <li><a href="#">حریم خصوصی</a></li>
+                                <li><a href="#">مجلات</a></li>
+                                <li><a href="#">بلاگ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-menu">
+                            <span class="title">دسنه بندی سریع</span>
+                            <ul>
+                                <li><a href="#">وردپرس</a></li>
+                                <li><a href="#">اندروید</a></li>
+                                <li><a href="#">سیستم عامل</a></li>
+                                <li><a href="#">دانلود</a></li>
+                                <li><a href="#">موبایل</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-menu">
+                            <span class="title">دسنه بندی موضوعی</span>
+                            <ul>
+                                <li><a href="{% url 'blog:posts_list_category' 'وبسایت'%}">وبسایت</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'رباتیک'%}">رباتیک</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'امنیت'%}">امنیت</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'توسعه دهنده'%}">توسعه دهنده</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'شبکه'%}">شبکه</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'اینترنت اشیا'%}">اینترنت اشیا</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'هوش مصنوعی'%}">هوش مصنوعی</a></li>
+                                <li><a href="{% url 'blog:posts_list_category' 'تکلونوژی'%}">تکلونوژی</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center">
+                    <div class="copy-r">
+                        <span>
+                            &copy; حقوق انتشار برای وبلاگ کده است
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.js"></script>
+
 
 {% endblock %}

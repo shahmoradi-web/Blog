@@ -1,14 +1,14 @@
-<form method="get" action="{% url 'blog:post_search' %}">
-    <input type="text" name="query" placeholder="متن مورد نظر خود را وارد کنید..." required>
-    <input type="submit" value="جستجو">
+<form  method="get" action="{% url 'blog:post_search' %}">
+    <input style="border: 2px solid gray" type="text" name="query" placeholder="متن مورد نظر خود را وارد کنید..." required>
+    <input type="submit" value="جستجو" >
 </form>
 
 {% if request.user.is_authenticated %}
     <b>
-    <a style="color: orange" href="{% url 'blog:profile'%}">{{ request.user.first_name | default:request.user.username }}</a>
+    <a style="color: gray" href="{% url 'blog:profile'%}">{{ request.user.first_name | default:request.user.username }}</a>
     </b>
 {% else %}
-    <a  style="padding: 10px; color: orange" href='{% url 'blog:login' %} '>ورود</a>
-    <a style="color: orange" href='{% url 'blog:register' %}'>ثبت نام</a>
+    <a  style="padding: 10px; color: gray" href='{% url 'blog:login' %} '>ورود</a>
+    <a style="color: gray" href='{% url 'blog:register' %}'>ثبت نام</a>
 {% endif %}
 

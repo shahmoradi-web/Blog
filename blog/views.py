@@ -22,7 +22,12 @@ from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    return render(request, 'blog/home.html')
+    post_first = Post.publish.first()
+    post_last = Post.publish.last()
+    l_posts = Post.publish.order_by('-published')[:2]
+    return render(request, 'blog/home.html', {'post_first': post_first,
+                                              'post_last': post_last,
+                                              'l_posts': l_posts})
 def posts_list(request, category=None):
     if category is not None:
         posts = Post.objects.filter(category=category)

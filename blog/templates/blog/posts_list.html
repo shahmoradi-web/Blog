@@ -3,39 +3,173 @@
 {% load jformat %}
 
 {% block content %}
-    {% for post in posts %}
-        <div>
-            <h3 style="color:orange;"><a href={{ post.get_absolute_url }}>{{ post.title }}</a></h3>
-            <p>نویسنده : {{ post.author }}</p>
-            <img src="{{ post.images.first.imag_file.url }}" alt="{{ post.images.first.name }}">
-            <h4>{{ post.content | truncatewords:20}}</h4>
-            <p>تاریخ انتشار:{{ post.published | jformat:"%Y/%m/%d"}}</p>
-            <hr>
+    <div class="main-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="menu-items">
+                        <ul>
+                            <li><a href="#">خانه</a></li>
+                            <li><a href="#">اخبار</a></li>
+                            <li><a href="#">تماس با ما</a></li>
+                            <li><a href="#">درباره ما</a>
+                                <ul>
+                                    <li><a href="#">خانه</a></li>
+                                    <li><a href="#">اخبار</a></li>
+                                    <li><a href="#">تماس با ما</a>
+                                        <ul>
+                                            <li><a href="#">خانه</a></li>
+                                            <li><a href="#">اخبار</a></li>
+                                            <li><a href="#">تماس با ما</a></li>
+                                            <li><a href="#">درباره ما</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">درباره ما</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="logo-box">
+
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-
-    {% include "partials/pagination.html" with page=posts%}
+    </div>
 
 
-    <p>دسته بندی ها</p>
-
-    <a href="{% url 'blog:posts_list_category' 'وبسایت'%}">وبسایت</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'رباتیک'%}">رباتیک</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'امنیت'%}">امنیت</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'زبان برنامه نویسی'%}">زبان برنامه نویسی</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'توسعه دهنده'%}">توسعه دهنده</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'شبکه'%}">شبکه</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'اینترنت اشیا'%}">اینترنت اشیا</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'هوش مصنوعی'%}">هوش مصنوعی</a>
-    <br>
-    <a href="{% url 'blog:posts_list_category' 'تکلونوژی'%}">تکلونوژی</a>
+    <div class="page-baner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <span> پست ها</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+
+    <div class="container">
+        <div class="row">
+            <div class="page-content index-blog">
+                <span class="page_title"><i class="fa fa-angle-left"></i> اخبار و مقالات</span>
+                {% for post in posts %}
+                <div class="row row1">
+                    <div class="col-md-6">
+                        <div class="desc">
+                            <h4>{{ post.title }}</h4>
+                            <div class="meta">
+                                <p><i class="fa fa-calendar-o"></i> {{ post.published }}</p>
+                                <p><i class="fa fa-comment-o"></i> {{ post.comments.count }} نظر</p>
+                            </div>
+                            <p>{{ post.content }}</p>
+                            <div class="text-left">
+                                <a href="{{ post.get_absolute_url }}" class="site-btn">ادامه مطلب <i class="fa fa-angle-left"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="pic">
+                            <img src="{{ post.images.first.imag_file.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="col-md-12 text-center">
+                    <div class="pagination-box">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer_box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="col-md-4">
+                        <div class="footer-menu">
+                            <span class="title">دسترسی سریع</span>
+                            <ul>
+                                <li><a href="#">خانه</a></li>
+                                <li><a href="#">تماس با ما</a></li>
+                                <li><a href="#">حریم خصوصی</a></li>
+                                <li><a href="#">مجلات</a></li>
+                                <li><a href="#">بلاگ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-menu">
+                            <span class="title">دسنه بندی موضوعی</span>
+                            <ul>
+                                <li><a href="#">وردپرس</a></li>
+                                <li><a href="#">اندروید</a></li>
+                                <li><a href="#">سیستم عامل</a></li>
+                                <li><a href="#">دانلود</a></li>
+                                <li><a href="#">موبایل</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="footer-menu">
+                            <span class="title">دسترسی سریع</span>
+                            <ul>
+                                <li><a href="#">خانه</a></li>
+                                <li><a href="#">تماس با ما</a></li>
+                                <li><a href="#">حریم خصوصی</a></li>
+                                <li><a href="#">مجلات</a></li>
+                                <li><a href="#">بلاگ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="desc_footer footer-menu">
+                        <span class="title">دسترسی سریع</span>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+                            چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
+                            تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای
+                            زیادیلورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
+                            است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
+                            تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div class="copy-r">
+                        <span>
+                            &copy; حقوق انتشار برای سئو 90 محفوط است
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.js"></script>
+    {% include 'partials/pagination.html' %}
 {% endblock %}

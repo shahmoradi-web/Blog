@@ -1,13 +1,13 @@
-<nav class="my-5" aria-label="navigation">
+<nav  class="my-5" aria-label="navigation">
     <ul class="pagination d-inline-block d-md-flex justify-content-center">
 
 {% if page.has_previous %}
     <li class="page-item">
-    	<a class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="true">قبل</a>
+    	<a style="color: #5cb85c" class="page-link" href="?page={{ page.previous_page_number }}" tabindex="-1" aria-disabled="true">قبل</a>
     </li>
 
   {% if page.number > 3 %}
-    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+    <li class="page-item"><a class="page-link" style="color: #5cb85c" href="?page=1">1</a></li>
     {% if page.number > 4 %}
       <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
     {% endif %}
