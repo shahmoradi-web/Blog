@@ -10,15 +10,6 @@
 
 <p>The name of the blog site is weblog kade, and the common topics of the articles are about technology. It is written in the Python programming language and the Django framework.</p>
 
-<h3>Activity</h3>
-
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/shahmoradi-web/Blog)
-
-<h3>Programming Language Count</h3>
-
-![GitHub language count](https://img.shields.io/github/languages/count/shahmoradi-web/Blog)
-
-
 ---
 
 ## 🧠 What is this?
@@ -48,5 +39,26 @@ It was made as a learning project to strengthen my skills in Django and backend 
 1. Clone the repo  
    ```bash
    git clone https://github.com/shahmoradi-web/Blog.git
+
+2. Create & activate virtual environment
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+4. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+
+6. Run migrations
+   ```bash
+   python manage.py migrate
+
+8. Create superuser (optional)
+   ```bash
+   python manage.py createsuperuser
+
+10. Start development server
+    ```bash
+      python manage.py runserver
 
 
