@@ -17,3 +17,36 @@
 <h3>Programming Language Count</h3>
 
 ![GitHub language count](https://img.shields.io/github/languages/count/shahmoradi-web/Blog)
+
+
+---
+
+## 🧠 What is this?
+
+This is a simple blog application where users can read posts and admins can create/update/delete posts.  
+It was made as a learning project to strengthen my skills in Django and backend development. :contentReference[oaicite:1]{index=1}
+
+---
+
+## 🛠️ Features
+
+- 🔹 User login & logout
+- 🔹 Create, read, update, delete posts (CRUD)
+- 🔹 Simple styled interface
+
+---
+
+## 🔧 Technologies Used
+
+- **Python**  
+- **Django**  
+
+---
+
+## 🚀 How to Run
+
+1. Clone the repo  
+   ```bash
+   git clone https://github.com/shahmoradi-web/Blog.git
+
+
